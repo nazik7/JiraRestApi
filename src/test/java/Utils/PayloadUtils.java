@@ -87,10 +87,11 @@ public class PayloadUtils {
     }
 
     public static String getSprint(String sprintName, int originBoardId,String startDate,String endDate, String sprintGoal){
+
         String sprintBody = "{\n" +
                 "  \"name\": \""+sprintName+"\",\n" +
-                "  \"startDate\": \"2020-04-11T15:22:00.000+10:00\",\n" +
-                "  \"endDate\": \"2020-04-25T15:22:00.000+10:00\",\n" +
+                "  \"startDate\": \""+startDate+"\",\n" +
+                "  \"endDate\": \""+endDate+"\",\n" +
                 "  \"originBoardId\": "+originBoardId+",\n" +
                 "  \"goal\": \"Sprintgoal\"\n" +
                 "}";
@@ -104,10 +105,10 @@ public class PayloadUtils {
         RestAssured.basePath = "rest/auth/1/session";
 
         //get username and pasword
-        String credentialsBody = PayloadUtils.getCredentials();
-        Map<String, String> response = given().accept(ContentType.JSON).contentType(ContentType.JSON)
+        String credentialsBody = getCredentials();
+        /*Map<String, String> response = given().accept(ContentType.JSON).contentType(ContentType.JSON)
                 .body(credentialsBody)
-                .when().post().then().statusCode(200).extract().cookies();
+                .when().post().then().statusCode(200).extract().cookies();*/
 
         String value = given().accept(ContentType.JSON).contentType(ContentType.JSON)
                 .body(credentialsBody)
