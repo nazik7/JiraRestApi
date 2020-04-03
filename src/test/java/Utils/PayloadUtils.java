@@ -1,5 +1,12 @@
 package Utils;
 
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+
+import java.util.Map;
+
+import static io.restassured.RestAssured.given;
+
 public class PayloadUtils {
 
     public static String getPetPayload(Integer id){
@@ -79,7 +86,7 @@ public class PayloadUtils {
         return postBody;
     }
 
-    public static String getSprint(String sprintName, int originBoardId){
+    public static String getSprint(String sprintName, int originBoardId,String startDate,String endDate, String sprintGoal){
         String sprintBody = "{\n" +
                 "  \"name\": \""+sprintName+"\",\n" +
                 "  \"startDate\": \"2020-04-11T15:22:00.000+10:00\",\n" +
@@ -90,4 +97,23 @@ public class PayloadUtils {
 
         return sprintBody;
     }
+
+    //another way to get cookie  value
+    public static String getSessionCookie(){
+        RestAssured.baseURI = "http://localhost:8080";
+        RestAssured.basePath = "rest/auth/1/session";
+
+        //get username and pasword
+        String credentialsBody = PayloadUtils.getCredentials();
+        Map<String, String> response = given().accept(ContentType.JSON).contentType(ContentType.JSON)
+                .body(credentialsBody)
+                .when().post().then().statusCode(200).extract().cookies();
+
+        String value = given().accept(ContentType.JSON).contentType(ContentType.JSON)
+                .body(credentialsBody)
+                .when().post().then().statusCode(200).extract().cookie("JSESSIONID");
+        return value;
+
+    }
+
 }
