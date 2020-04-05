@@ -26,7 +26,7 @@ public class CreateSprint {
 
         response = given().accept(ContentType.JSON).contentType(ContentType.JSON)
                 .cookie("JSESSIONID", PayloadUtils.getSessionCookie())
-                .body(PayloadUtils.getSprint(name, Integer.valueOf(originBoardId),
+                .body(PayloadUtils.getSprint(name, Integer.parseInt(originBoardId),
                         startDate, endDate, goal))
                 .when().request(request);
     }
@@ -53,6 +53,7 @@ public class CreateSprint {
 
         Assert.assertEquals(responseValues.get("originBoardId"),responseValuesFromJira.get("originBoardId").toString());
         Assert.assertEquals(responseValues.get("goal"),responseValuesFromJira.get("goal").toString());
+
 
     }
 

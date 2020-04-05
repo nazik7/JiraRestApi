@@ -2,15 +2,11 @@ package Utils;
 
 import org.junit.After;
 import org.junit.Before;
+import org.testng.annotations.AfterSuite;
 
 public class Hook {
 
-     @Before
-    public void setup(){
-
-     }
-
-     @After
+     @AfterSuite
     public void deleteBoard(){
 
      }

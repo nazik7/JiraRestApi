@@ -57,7 +57,7 @@ public class PayloadUtils {
     }
 
     public static String getJiraPayload(String key,String assignee,String summary,
-                                        String description, String priority,String issueType ){
+                                        String description, String issueType,String priority ){
         return "{\n" +
                 "    \"fields\": {\n" +
                 "        \"project\": {\n" +
@@ -86,14 +86,15 @@ public class PayloadUtils {
         return postBody;
     }
 
-    public static String getSprint(String sprintName, int originBoardId,String startDate,String endDate, String sprintGoal){
+    public static String getSprint(String sprintName, int originBoardId,String startDate,
+                                   String endDate, String sprintGoal){
 
         String sprintBody = "{\n" +
                 "  \"name\": \""+sprintName+"\",\n" +
                 "  \"startDate\": \""+startDate+"\",\n" +
                 "  \"endDate\": \""+endDate+"\",\n" +
                 "  \"originBoardId\": "+originBoardId+",\n" +
-                "  \"goal\": \"Sprintgoal\"\n" +
+                "  \"goal\": \""+sprintGoal+"\"\n" +
                 "}";
 
         return sprintBody;
@@ -116,5 +117,17 @@ public class PayloadUtils {
         return value;
 
     }
+
+    public static String getBoardBody(String name, String type, int filterId){
+        String boardBody = "{\n" +
+                "\"name\": \""+name+"\",\n" +
+                "\"type\": \""+type+"\",\n" +
+                "\"filterId\": "+filterId+"\n" +
+                "}";
+
+        return boardBody;
+    }
+
+
 
 }
